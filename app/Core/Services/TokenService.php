@@ -8,12 +8,12 @@ class TokenService
 
     private static function generateToken(): string
     {
-        return self::generateToken();
+        return TokenRepository::generateToken();
     }
 
     public static function validateToken(string $token): bool
     {
-        return self::validateToken($token);
+        return TokenRepository::validateToken($token);
     }
 
     public static function createToken(int $userID)
