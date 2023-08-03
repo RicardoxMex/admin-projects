@@ -12,8 +12,7 @@ require_once __DIR__.'/app/Utils/Helpers.php';
 $webRoutes = require __DIR__.'/routes/web.php';
 $apiRoutes = require __DIR__.'/routes/api.php';
 $routes = array_merge($webRoutes, $apiRoutes);
-var_dump($routes);
-exit;
+
 // Crea el enrutador
 $dispatcher = FastRoute\simpleDispatcher(function (RouteCollector $r) use ($routes) {
     foreach ($routes as $route) {
@@ -23,7 +22,9 @@ $dispatcher = FastRoute\simpleDispatcher(function (RouteCollector $r) use ($rout
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-
+echo $httpMethod;
+echo $uri;
+exit;
 // Elimina la cadena de consulta (?foo=bar) y fragmento (#hash) de la URI
 if (($pos = strpos($uri, '?')) !== false) {
     $uri = substr($uri, 0, $pos);
