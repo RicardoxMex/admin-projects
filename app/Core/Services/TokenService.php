@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\services;
+namespace App\Core\Services;
 use App\Core\Repositories\TokenRepository;
 
 class TokenService
@@ -8,18 +8,18 @@ class TokenService
 
     private static function generateToken(): string
     {
-        return TokenRepository::generateToken();
+        return self::generateToken();
     }
 
     public static function validateToken(string $token): bool
     {
-        return TokenRepository::validateToken($token);
+        return self::validateToken($token);
     }
 
     public static function createToken(int $userID)
     {
         $fechaExpiracion = date('Y-m-d H:i:s', strtotime('+1 day'));
-        $token =  TokenService::generateToken();
+        $token =  self::generateToken();
         return TokenRepository::create($userID, $token, $fechaExpiracion);
     }
 

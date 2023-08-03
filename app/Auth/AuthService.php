@@ -2,7 +2,8 @@
 
 namespace App\Auth;
 
-use App\Core\services\TokenService;
+
+use App\Core\Services\TokenService;
 use App\Core\Services\UserService;
 use App\Utils\CookieManager;
 use App\Utils\Session;
