@@ -1,0 +1,27 @@
+@media (min-width: 768px) {
+  .sidebar {
+    display: block;
+  }
+  header{
+    display: none;
+  }
+  .content {
+    padding: 0;
+    margin-top: 0px;
+    margin-left: 250px;
+  }
+  .wrapper {
+    padding: 0;
+    display: flex;
+  }
+
+  .content {
+    flex-grow: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1200px) {
+}

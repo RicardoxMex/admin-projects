@@ -1,0 +1,14 @@
+@media (min-width: 768px) {
+    .header-mobile{
+        display: none;
+    }
+    .content{
+        margin: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1200px) {
+}

@@ -1,0 +1,28 @@
+
+@media (min-width: 768px) {
+    body{
+        background: none;
+    }
+    .container{
+        padding: 1rem;
+    }
+    .container-auth {
+        margin: 55px auto;
+    }
+    .login{
+        width: 450px;
+        height: 700px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+}
+ 
+
+@media (min-width: 1024px) {
+    .login{
+        width: 550px;
+        height: 700px;
+    }
+ }
+ 
+
+@media (min-width: 1200px) { }

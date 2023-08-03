@@ -1,0 +1,110 @@
+
+/*mobile*/
+header {
+    background-color: #211f25;
+    color: #fff;
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+  .menu-icon {
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .drawer {
+    padding-top: 30px;
+    background-color: #fff;
+    color: #333;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s;
+    z-index: 100;
+  }
+  
+  .drawer ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .drawer li {
+    display: flex;
+    align-items: center;
+  }
+  
+  .drawer li a {
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .drawer li a:hover {
+    background-color: #8f8f8f;
+  }
+  
+  .material-icons {
+    margin-right: 10px;
+    /* Agrega un margen entre el icono y el texto */
+  }
+  
+  .show-drawer {
+    left: 0;
+  }
+  
+  .section {
+    color: #999;
+    font-size: 14px;
+    padding: 8px 10px;
+    margin: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Estilos para el footer */
+  .drawer-footer {
+    border-top: #ccc 1px solid;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+  }
+  
+  .logout-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logout-section i {
+    margin-right: 10px;
+  }
+  
+  .logout-section a{
+    font-size: 16pt;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    z-index: 90;
+  }
