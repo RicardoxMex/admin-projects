@@ -22,10 +22,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (RouteCollector $r) use ($rout
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-echo $httpMethod;
-echo $uri;
-echo phpinfo();
-exit;
+
 // Elimina la cadena de consulta (?foo=bar) y fragmento (#hash) de la URI
 if (($pos = strpos($uri, '?')) !== false) {
     $uri = substr($uri, 0, $pos);
