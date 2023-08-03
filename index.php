@@ -12,7 +12,8 @@ require_once __DIR__.'/app/Utils/Helpers.php';
 $webRoutes = require __DIR__.'/routes/web.php';
 $apiRoutes = require __DIR__.'/routes/api.php';
 $routes = array_merge($webRoutes, $apiRoutes);
-
+var_dump($routes);
+exit;
 // Crea el enrutador
 $dispatcher = FastRoute\simpleDispatcher(function (RouteCollector $r) use ($routes) {
     foreach ($routes as $route) {
