@@ -4,13 +4,13 @@ use App\Utils\Request;
 use FastRoute\RouteCollector;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\PaginatorInterface;
-
-require_once './public/index.php';
-require_once 'app/Utils/Helpers.php';
+try {
+    require_once __DIR__.'/public/index.php';
+require_once __DIR__.'/app/Utils/Helpers.php';
 
 // Combina las rutas de web.php y api.php
-$webRoutes = require './routes/web.php';
-$apiRoutes = require './routes/api.php';
+$webRoutes = require __DIR__.'/routes/web.php';
+$apiRoutes = require __DIR__.'/routes/api.php';
 $routes = array_merge($webRoutes, $apiRoutes);
 
 // Crea el enrutador
@@ -69,4 +69,8 @@ switch ($routeInfo[0]) {
         // Llama al método del controlador con los argumentos adecuados
         $controllerReflection->invokeArgs($controller, $args);
         break;
+}
+
+} catch (\Throwable $th) {
+    echo $th->getMessage();
 }

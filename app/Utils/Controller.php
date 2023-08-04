@@ -4,7 +4,9 @@ class Controller
 {
     public function __construct()
     {
-        ob_clean();
+        if (ob_get_length()) {
+            ob_clean();
+        }
         Session::start();
     }
 }
