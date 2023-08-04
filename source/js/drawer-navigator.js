@@ -5,13 +5,15 @@ function toggleDrawer() {
 
 window.addEventListener("click", function (event) {
   const drawer = document.getElementById("drawer");
-  const menuIcon = document.querySelector(".menu-icon");
+  if (drawer) {
+    const menuIcon = document.querySelector(".menu-icon");
 
-  if (!drawer.contains(event.target) && event.target !== menuIcon) {
-    drawer.classList.remove("show-drawer");
+    if (!drawer.contains(event.target) && event.target !== menuIcon) {
+      drawer.classList.remove("show-drawer");
+    }
   }
 });
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener("turbolinks:load", function () {
   let sortableLists = document.querySelectorAll(".sortable-list");
 
   // Crear una instancia de Sortable para cada lista
@@ -34,4 +36,4 @@ document.addEventListener("turbolinks:load", function() {
       },
     });
   });
-})
+});
