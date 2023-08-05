@@ -17,4 +17,381 @@ body {
   margin-left: 10px;
 }
 
+.opacity-5 {
+  background-color: rgba(255, 255, 255, .5);
+  backdrop-filter: blur(10px);
+}
 
+.header-content{
+  display: flex; 
+  justify-content:space-between; 
+  padding-right:20px;
+  padding-left: 20px;
+  padding-top: 20px;
+  align-items:center;
+}
+
+.title-web{
+  display: none !important;
+}
+
+/* Botones */
+.btn {
+  margin: 2px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.btn-sm{
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.btn-sm .material-symbols-outlined{
+  font-size: 22px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos adicionales para botones */
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #1a732e;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #a71d29;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+}
+
+.btn-warning:hover {
+  background-color: #b08804;
+}
+
+/* Estilos adicionales para botones con icono sin texto */
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.btn-icon i {
+  font-size: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100;
+  margin: 0 auto;
+}
+
+.btn-icon:hover {
+  background-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-icon-only {
+  width: 35px;
+  height: 35px;
+}
+
+.btn-group{
+  display: flex;
+}
+
+.btn-opacity{
+  background-color: rgba(100, 100, 100, .5);
+  backdrop-filter: blur(10px);
+  height: auto;
+  width: auto;
+}
+.btn-opacity .material-symbols-outlined{
+  font-size: 30px;
+}
+
+.btn-opacity:hover{
+  background-color: rgba(100, 100, 100, 1);
+  backdrop-filter: blur(0px);
+}
+
+
+.priority-high {
+  padding: 5px;
+  background-color: #dc3545;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.status-box {
+  padding: 5px;
+  background-color: #28a745;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 7pt;
+}
+
+.status-success {
+  background-color: #28a745;
+}
+
+.status-danger {
+  background-color: #dc3545;
+}
+
+.status-warning {
+  background-color: #ffc107;
+}
+
+
+.td-name {
+  min-width: 200px;
+}
+
+.td-date {
+  min-width: 91px;
+  display: none;
+}
+
+.td-description {
+  max-width: 300px;
+  max-height: 3em;
+  white-space: nowrap;
+  /* Evita el salto de línea */
+  overflow: hidden;
+  /* Oculta el contenido que excede */
+  text-overflow: ellipsis;
+  display: none;
+}
+
+.td-status {
+  min-width: 81px;
+}
+
+#table {
+  overflow: auto;
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-spacing: 0;
+  padding: 20px;
+  font-size: .9rem;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.55rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.progress {
+  width: 100px;
+  height: 20px;
+  margin: 0;
+}
+
+.progress-bar {
+  background-color: #007bff;
+  border-radius: 4px;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e2e6ea;
+}
+
+
+/* grid*/
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 100%;
+  background-color: rgba(255, 255, 255, .5);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  text-decoration: none;
+  color: black;
+}
+
+.card:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+.card-header {
+  padding: 20px;
+  text-align: center;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.description {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: black;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.status {
+  margin: 10px 0;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.in-progress {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.progress-container {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar {
+  margin-top: 20px;
+  height: 10px;
+  background-color: forestgreen;
+  border-radius: 5px;
+  position: relative;
+}
+
+.progress-label {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.end-date {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: black;
+}
+
+.hidden {
+  display: none;
+}
+
+.select-btn {
+  background-color: rgba(100, 100, 100, 1);
+}
+
+/*Form*/
+
+.form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group select {
+  appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat;
+  background-size: 10px;
+  background-position: calc(100% - 10px) center;
+}

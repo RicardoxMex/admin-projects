@@ -3,6 +3,7 @@
 
 
 @import url("main/main.css");
+@import url("main/main-responsive.css");
 @import url("login/login.css");
 @import url("login/login-responsive.css");
 @import url("drawer/drawer.css");

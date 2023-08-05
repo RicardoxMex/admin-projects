@@ -17,6 +17,7 @@
   width: 250px;
   height: 100vh;
   overflow-y: auto;
+  z-index: 100;
 }
 .sidebar a{
   text-decoration: none;
@@ -114,3 +115,7 @@
   transition: 0.3s;
 }
 
+.header-nav{
+  display: none;
+  justify-content: space-around;
+}

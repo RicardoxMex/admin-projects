@@ -1,0 +1,22 @@
+@media (min-width: 768px) {
+    .header-content{
+        padding-right:20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .title-web{
+        display: block !important;
+    }
+}
+  
+  @media (min-width: 1024px) {
+    .container{
+        padding: 1rem;
+        width: 80%;
+        margin: 0 auto;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+  }
+  

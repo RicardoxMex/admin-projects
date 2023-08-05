@@ -2,8 +2,8 @@
   .sidebar {
     display: block;
   }
-  header{
-    display: none;
+  .header-nav{
+    display: flex;
   }
   .content {
     padding: 0;

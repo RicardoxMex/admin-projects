@@ -14,6 +14,7 @@ class Views
 
     public static function setTitle(string $title) : void{
         self::$title = $title;
+        self::$data['title'] = $title;
     }
 
     public static function setData(array $data) : void{
