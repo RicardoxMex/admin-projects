@@ -25,6 +25,10 @@ class UserService
         return UserRepository::validateRequest();
     }
 
+    public static function validateRequestApi(){
+        return UserRepository::validateRequestApi();
+    }
+
     public static function  isUser(string $username){
         return UserRepository::isUser($username);
     }

@@ -3,6 +3,7 @@
 namespace App\Core\Repositories;
 
 use App\Entities\User;
+use App\Utils\Request;
 use App\Utils\Session;
 use Exception;
 use GUMP;
@@ -15,15 +16,37 @@ class UserRepository
     {
         Session::delete("validateUser");
         Session::delete("errors");
+
+        $request = Request::getRequest();
+
+        if($request){
+            $request = array($request);
+        }else{
+            $request = $_POST;
+        }
         $gump = new GUMP();
         $rules = User::$rules;
         $gump->validation_rules($rules);
-        $gump->run($_POST);
-        if ($gump->is_valid($_POST, $rules) === true) {
+        $gump->run($request);
+        if ($gump->is_valid($request, $rules) === true) {
             return true;
         }
         Session::setSession("errors", $gump->get_errors_array());
-        Session::setSession('data', (object)$_POST);
+        Session::setSession('data', (object)$request);
+        return false;
+    }
+
+    public static function validateRequestApi()
+    {
+        $request = Request::getRequest();
+        $gump = new GUMP();
+        $rules = User::$rules;
+        $gump->validation_rules($rules);
+        $gump->run((array)$request);
+        if ($gump->is_valid((array)$request, $rules) === true) {
+            return true;
+        }
+        errorResponse($gump->get_errors_array());
         return false;
     }
 
@@ -42,10 +65,13 @@ class UserRepository
 
             if ($username_exists !== null && $email_exists === null) {
                 Session::setSession("validateUser", "El usuario ya existe");
+                errorResponse("El usuario ya existe");
             } else if ($username_exists === null && $email_exists !== null) {
                 Session::setSession("validateUser", "El Correo ya existe");
+                errorResponse ("El Correo ya existe");
             } else {
                 Session::setSession("validateUser", "el usuario y el correo ya existen");
+                errorResponse("El usuario ya existe");
             }
             Session::setSession('data', (object)$_POST);
             return null;

@@ -4,6 +4,18 @@ use App\Utils\Request;
 use FastRoute\RouteCollector;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\PaginatorInterface;
+
+// Permite el origen específico desde el que se está haciendo la solicitud
+header("Access-Control-Allow-Origin: *");
+
+// Permite los métodos de solicitud que se permiten
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+
+// Permite las cabeceras que se pueden incluir en la solicitud
+header("Access-Control-Allow-Headers: authorization, content-type"); // Agrega 'authorization' a las cabeceras permitidas
+
+// Permite que las cookies se incluyan en la solicitud (si es necesario)
+header('Access-Control-Allow-Credentials: true');
 try {
     require_once __DIR__.'/public/index.php';
 require_once __DIR__.'/app/Utils/Helpers.php';
@@ -52,11 +64,12 @@ switch ($routeInfo[0]) {
         $request_method = $_SERVER["REQUEST_METHOD"];
         $request = new Request();
         // Crea un array con los argumentos para llamar al método del controlador
-        $args = array_merge(array_values($vars), [$request->all()]);
+        $args = array_merge(array_values($vars), [$request]);
 
         // Verifica si hay un parámetro PaginatorInterface en los argumentos
         $controllerReflection = new ReflectionMethod($controllerName, $methodName);
         if (in_array(PaginatorInterface::class, $controllerReflection->getParameters())) {
+            
             // Crea un Paginator
             $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
             $itemsPerPage = 10; // Cambia esto al número deseado de elementos por página

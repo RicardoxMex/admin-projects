@@ -1,6 +1,7 @@
 <?php
 
 use App\Auth\AuthService;
+use App\Core\Services\UserService;
 use App\Utils\CookieManager;
 use App\Utils\Session;
 use App\Utils\Template;
@@ -28,11 +29,19 @@ function deb($data)
     echo "</pre>";
 }
 
-function successResponse($data, int $status = 200, string $message = ""): void
+function successResponse($data, int $status = 200, string $token= "", string $message = ""): void
 {
     http_response_code($status);
     header('Content-Type: application/json');
-    echo json_encode(['data' => $data, 'status' => $status, 'message' => $message]);
+    echo json_encode(['data' => $data, 'status' => $status]);
+    exit();
+}
+
+function successResponseCustom($data, int $status = 200): void
+{
+    http_response_code($status);
+    header('Content-Type: application/json');
+    echo json_encode($data);
     exit();
 }
 
@@ -64,6 +73,10 @@ function errors($input)
     }
 }
 
+function data($input){
+    $data = Session::getSession('data');
+    return isset($data->$input) ? $data->$input : '';
+}
 function valueInput($input)
 {
     if (isset($input)) {
@@ -137,4 +150,8 @@ function img($path)
 function user()
 {
     return CookieManager::getCookie("username");
+}
+
+function currentUser(){
+    return UserService::getUserByUsername(user());
 }

@@ -242,7 +242,7 @@ body {
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f2f2f262;
 }
 
 .progress {
@@ -368,6 +368,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffffb4;
 }
 
 .form-group {
@@ -394,4 +395,8 @@ body {
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat;
   background-size: 10px;
   background-position: calc(100% - 10px) center;
+}
+
+.alert-text{
+  color: #ff0015;
 }

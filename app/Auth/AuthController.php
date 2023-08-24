@@ -3,6 +3,7 @@ namespace App\Auth;
 
 use App\Core\Services\UserService;
 use App\Utils\Controller;
+use App\Utils\Request;
 use App\Utils\Session;
 use App\Utils\Views;
 
@@ -22,8 +23,9 @@ class AuthController extends Controller{
         Views::render();
     }
 
-    public function signIn($request)
+    public function signIn(Request $request)
     {
+        $request = Request::all();
         $login = AuthService::login($request->username, $request->password);
 
         if ($login) {
@@ -35,6 +37,7 @@ class AuthController extends Controller{
 
     public function signUp($request)
     {
+        $request = $request->all();
         if (UserService::validateRequest() === true) {
             $user = UserService::create($request->username, $request->email, $request->password);
             if ($user !== null) {

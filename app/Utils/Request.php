@@ -2,7 +2,7 @@
 namespace App\Utils;
 class Request 
 {
-    public static function getQuery($param = null, $default = null)
+    public static function getParam($param = null, $default = null)
     {
         if ($param) {
             return isset($_GET[$param]) ?
@@ -48,7 +48,7 @@ class Request
     public static function getApiOrQueryParam($param) 
     {
         return Request::getApiParam($param) ? 
-            Request::getApiParam($param) : Request::getQuery($param);
+            Request::getApiParam($param) : Request::getParam($param);
     }
 
     public static function hola($param){

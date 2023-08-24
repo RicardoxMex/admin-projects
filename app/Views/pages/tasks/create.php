@@ -26,8 +26,8 @@
                 <input type="date" id="end_date" name="end_date" required>
             </div>
             <div class="form-group">
-                <label for="stimated_time">Estimated Time:</label>
-                <input type="number" id="stimated_time" name="stimated_time" step="0.01">
+                <label for="estimated_time">Estimated Time:</label>
+                <input type="number" id="estimated_time" name="estimated_time" step="0.01">
             </div>
             <div class="form-group">
                 <label for="project_id">Project ID:</label>

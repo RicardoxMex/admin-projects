@@ -4,14 +4,14 @@ namespace App\Controllers\Api;
 
 use App\Auth\AuthService;
 use App\Auth\User;
+use App\Core\Services\UserService;
 use App\Utils\Request;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Pagination\Paginator;
 
 class AuthController{
-
-    public function getToken() {
+    public static function getToken() {
         $headers = apache_request_headers();
         if(!isset($headers['Authorization'])){
             return errorResponse('Unauthenticated request', 403);
@@ -26,8 +26,8 @@ class AuthController{
         }
     }
 
-    function validateToken() {
-        $info = $this->getToken();
+    public static function validateToken() {
+        $info = self::getToken();
         $user = User::where('id', $info->data)->first();
         return  $user;
     }
@@ -45,8 +45,34 @@ class AuthController{
             $jwt = JWT::encode($payload, API_KEY, 'HS256');
             successResponse(['token' => $jwt]);
         }else{
-            errorResponse('error', 400);
+            errorResponse('invalid username and password', 400);
         }
+    }
+
+    public function token($email, $password){
+        $now = strtotime("now");
+        $user = AuthService::auth($email, $password);
+        if($user){
+            $payload = [
+                'exp' => $now + 3600,
+                'data' =>$user->id
+            ];
+            $jwt = JWT::encode($payload, API_KEY, 'HS256');
+            return $jwt;
+        }
+    }
+
+    public function signin($request){
+        $request = $request->getRequest();
+        if (UserService::validateRequestApi() === true) {
+            $user = UserService::create($request->username, $request->email, $request->password);
+            $response = [
+                'user'=>$user,
+                'token'=>$this->token($request->email, $request->password)
+            ];
+            successResponse($response);
+        }
+        
     }
 
     public function users()
@@ -67,5 +93,13 @@ class AuthController{
         if ($users) {
             return successResponse($users);
         }
+    }
+
+    public function validateTokenAPI() {
+        if (!$this->validateToken()) {
+            return errorResponse('Unauthorized', 403);
+        }
+
+        return successResponseCustom($this->validateToken());
     }
 }

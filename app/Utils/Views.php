@@ -18,6 +18,7 @@ class Views
     }
 
     public static function setData(array $data) : void{
+        self::$data['title'] = self::$title;
         self::$data = $data;
     }
     public static function setLayout(string $layout){
