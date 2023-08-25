@@ -1,3 +1,4 @@
+<?= component('projects.modal-create') ?>
 <div class="container">
     <div class="header-content">
         <div>
@@ -6,11 +7,11 @@
             </h2>
         </div>
         <div>
-            <a href="<?= route('test') ?>" class="btn btn-icon-only btn-opacity">
+            <button onclick="modalHandler(true, 'modal-projects-create' )" class="btn btn-icon-only btn-opacity">
                 <span class="material-symbols-outlined">
                     add
                 </span>
-            </a>
+            </button>
             <button id="btn-grid" class="btn btn-icon-only btn-opacity">
                 <span class="material-symbols-outlined">
                     grid_view

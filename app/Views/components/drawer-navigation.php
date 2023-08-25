@@ -1,9 +1,15 @@
 <nav class="drawer" id="drawer">
     <ul>
         <li>
-            <a href="/">
+            <a href="/" class="text-lg">
                 <i class="material-icons">home</i>
                 Home
+            </a>
+        </li> 
+        <li>
+            <a href="/projects" class="text-lg">
+                <i class="material-icons">folder_special</i>
+                Projects
             </a>
         </li> 
         <?php if (isAuth()) { ?>
