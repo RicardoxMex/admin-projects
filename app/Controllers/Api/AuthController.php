@@ -39,7 +39,7 @@ class AuthController{
         $user = AuthService::auth($request->email, $request->password);
         if($user){
             $payload = [
-                'exp' => $now + 3600,
+                'exp' => $now + 2629800,
                 'data' =>$user->id
             ];
             $jwt = JWT::encode($payload, API_KEY, 'HS256');
@@ -54,7 +54,7 @@ class AuthController{
         $user = AuthService::auth($email, $password);
         if($user){
             $payload = [
-                'exp' => $now + 3600,
+                'exp' => $now + 2629800,
                 'data' =>$user->id
             ];
             $jwt = JWT::encode($payload, API_KEY, 'HS256');

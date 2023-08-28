@@ -20,7 +20,7 @@
         </button>
     </a>
 
-    <a href="/projects">
+    <a href="/projects" data-turbolinks="true"  data-turbolinks-action="replace">
         <button>
             <span class="material-symbols-outlined">
                 folder_special

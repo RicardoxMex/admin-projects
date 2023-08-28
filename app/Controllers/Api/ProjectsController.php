@@ -34,7 +34,7 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
         $request = $request->getRequest();
-        if (ProjectService::validateRequest()) {
+        if (ProjectService::validateRequestAPI()) {
             $projects = ProjectService::createProject($request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time, $request->user_id);
             successResponse($projects);
         }
@@ -49,5 +49,24 @@ class ProjectsController extends Controller
         }
 
         errorResponse("Project not found", 404);
+    }
+
+    public function destroy($id)
+    {
+        $project = ProjectService::deleteProject($id);
+        $response = [
+            "project" => $project,
+            "message" => "Project deleted successfully",
+            "status" => 200
+        ];
+
+        return successResponseCustom($response);
+    }
+
+    public function update($id, Request $request)
+    {
+        $request = $request::getRequest();
+        ProjectService::updateProject($request->id, $request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time);
+        successResponseCustom(["message" => "Project updated successfully","status" => 200]);
     }
 }

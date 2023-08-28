@@ -2,7 +2,7 @@
 
 namespace App\Auth;
 
-
+use App\Controllers\Api\AuthController as AuthControllerAPI;
 use App\Core\Services\TokenService;
 use App\Core\Services\UserService;
 use App\Utils\CookieManager;
@@ -22,11 +22,15 @@ class AuthService
     }
     public static function login(string $username, string $password)
     {
+        $authAPI = new AuthControllerAPI();
         $user = UserService::getUserByUsername($username);
         if(!empty($password) && !empty($user->password)){
             if (password_verify($password, $user->password)) {
                 Session::delete("validateUser");
-                $token = TokenService::createToken($user->id);
+                $tokenAPI = $authAPI->token($user->email, $password);
+                $token = TokenService::createToken($user->id, $tokenAPI);
+                deb($tokenAPI);
+                deb($token);
                 AuthService::createSession($token->token, $user->username);
                 return true;
             }

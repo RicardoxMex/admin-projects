@@ -152,6 +152,16 @@ function user()
     return CookieManager::getCookie("username");
 }
 
+function user_id()
+{
+    return currentUser()->id;
+}
+
+function token()
+{
+    return CookieManager::getCookie("token");
+}
+
 function currentUser(){
     return UserService::getUserByUsername(user());
 }

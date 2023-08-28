@@ -3,9 +3,11 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Team extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['slug', 'name', 'description', 'project_id'];
 
     public function project()

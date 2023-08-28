@@ -1,5 +1,19 @@
-<?= component('projects.modal-create') ?>
-<div class="container">
+<div class="container" x-data="crudProjects" x-init="init">
+    <div x-show="showConfirm" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" x-cloak>
+        <div x-show="showConfirm" class="bg-white p-4 rounded shadow" x-transition>
+            <p class="mb-4">¿Deseas eliminar este elemento?</p>
+            <div class="flex justify-end">
+                <button @click="showConfirm = false" class="text-gray-600 mr-2">Cancelar</button>
+                <button @click="showConfirm = false" x-on:click="deleteProject()"
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div x-show="showModalProject" x-cloak x-transition>
+        <?= component('projects.modal-create') ?>
+    </div>
     <div class="header-content">
         <div>
             <h2 class="title-web">
@@ -7,84 +21,33 @@
             </h2>
         </div>
         <div>
-            <button onclick="modalHandler(true, 'modal-projects-create' )" class="btn btn-icon-only btn-opacity">
+            <button @click="showModalProject = true" class="btn btn-icon-only btn-opacity" data-modal="modal">
                 <span class="material-symbols-outlined">
                     add
                 </span>
             </button>
-            <button id="btn-grid" class="btn btn-icon-only btn-opacity">
-                <span class="material-symbols-outlined">
-                    grid_view
-                </span>
-            </button>
-            <button id="btn-list" class="btn btn-icon-only btn-opacity">
+            <button id="btn-list" class="btn btn-icon-only btn-opacity" @click="$store.DisplayMode.setMode('table')"
+                x-bind:class="($store.DisplayMode.mode == 'table')? 'select-btn' : ''">
                 <span class="material-symbols-outlined">
                     list
                 </span>
             </button>
+            <button id="btn-grid" class="btn btn-icon-only btn-opacity" @click="$store.DisplayMode.setMode('grid')"
+                x-bind:class="($store.DisplayMode.mode == 'grid')? 'select-btn' : ''">
+                <span class="material-symbols-outlined">
+                    grid_view
+                </span>
+            </button>
         </div>
     </div>
-
-    <div id="grid" class="grid">
-        <?php foreach ($projects as $project) { ?>
-            <a class="card glass" href="<?= route('projects/' . $project->slug) ?>">
-                <div class="card-header">
-                    <h2>
-                        <?= $project->name ?>
-                    </h2>
-                    <p class="description">
-                        <?= $project->description ?>
-                    </p>
-                </div>
-                <div class="card-body">
-                    <div class="status">
-                        <p><strong>Status:</strong> <span class="status-badge in-progress">
-                                <?= $project->status ?>
-                            </span></p>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="<?= "width: $project->progress %;" ?>">
-                            <span class="progress-label">
-                                <?= $project->progress ?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="end-date">
-                        <p><strong>End Date:</strong>
-                            <?= $project->end_date ?>
-                        </p>
-                    </div>
-                </div>
-            </a>
-        <?php } ?>
-        <!-- <div class="card glass">
-            <div class="card-header">
-                <h2>Project Name</h2>
-                <p class="description">Project Description Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-            <div class="card-body">
-                <div class="status">
-                    <p><strong>Status:</strong> <span class="status-badge in-progress">In Progress</span></p>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: 75%;">
-                        <span class="progress-label">75%</span>
-                    </div>
-                </div>
-                <div class="end-date">
-                    <p><strong>End Date:</strong> 2023-12-31</p>
-                </div>
-            </div>
-        </div> -->
-
-
+    <div x-show="$store.DisplayMode.mode=='grid'" id="grid" class="grid">
+        holas
     </div>
-    <div id="table">
+    <div x-show="$store.DisplayMode.mode=='table'" id="table" x-cloak>
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th class="td-name"></th>
+                    <th class="td-name">Name</th>
                     <th class="td-description">Description</th>
                     <th class="td-date">Start Date</th>
                     <th class="td-date">End Date</th>
@@ -94,124 +57,186 @@
                     <th>Budget</th>
                     <th>Estimated Time</th>
                     <th></th>
-
-                </tr>
+                <tr>
             </thead>
             <tbody>
-                <?php foreach ($projects as $project) { ?>
-                    <tr class="">
+                <template x-show="datosCargados" x-for="project in $store.ProjectStore.projects" :key="project.id">
+                    <tr>
+                        <td x-text="project.name"></td>
+                        <td class="td-description" x-text="project.description"></td>
+                        <td class="td-date" x-text="project.start_date"></td>
+                        <td class="td-date" x-text="project.end_date"></td>
+                        <td><span class="status-box status-success" x-text="project.status"></span></td>
                         <td>
-                            <?= $project->id ?>
-                        </td>
-                        <td>
-                            <?= $project->name ?>
-                        </td>
-                        <td class="td-description">
-                            <?= $project->description ?>
-                        </td>
-                        <td class="td-date">
-                            <?= $project->start_date ?>
-                        </td>
-                        <td class="td-date">
-                            <?= $project->end_date ?>
-                        </td>
-                        <td><span class="status-box status-success">
-                                <?= $project->status ?>
-                            </span></td>
-                        <td>
-
                             <div class="w-full  rounded-full dark:bg-gray-400">
                                 <div class="bg-green-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-                                    style="width: 45%"> 45%</div>
+                                    style="width: 45%" x-text="project.progress+'%'"></div>
                             </div>
-
                         </td>
-                        <td>
-                            <?= $project->priority ?>
-                        </td>
-                        <td>
-                            <?= $project->budget ?>
-                        </td>
-                        <td>
-                            <?= $project->estimated_time . ' HRS' ?>
-                        </td>
+                        <td x-text="project.priority"></td>
+                        <td x-text="project.budget"></td>
+                        <td x-text="project.estimated_time+' HRS'"></td>
                         <td class="btn-group">
-                            <a class=" btn btn-success btn-icon-only" href="<?= route('projects/' . $project->slug) ?>">
+                            <a class=" btn btn-success btn-icon-only" :href="'<?= HTTP_HOST?>/projects/'+project.slug">
                                 <span class="material-symbols-outlined">
                                     visibility
                                 </span>
                             </a>
-                            <button class=" btn btn-icon-only">
+                            <button class=" btn btn-icon-only"
+                                @click="showModalProject = true; edit=true; editProject(project)">
                                 <span class="material-symbols-outlined">
                                     edit
                                 </span>
                             </button>
-                            <button class="btn btn-danger btn-icon-only">
+                            <button @click="showConfirm = true; id_project=project;"
+                                class="btn btn-danger btn-icon-only">
                                 <span class="material-symbols-outlined">
                                     delete
                                 </span>
                             </button>
                         </td>
                     </tr>
-                <?php } ?>
+                </template>
             </tbody>
         </table>
 
-
     </div>
 
-    <div class="pagination">
-        <?php
-        $totalPages = ceil($totalProjects / $projectsPerPage);
 
-        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
-        $numLinksToShow = 5; // Número de enlaces a mostrar en cada extremo
-        
-        echo '<a href="?page=1">First</a>';
 
-        // Mostrar botón para la página anterior si no estamos en la primera página
-        if ($currentPage > 1) {
-            echo '<a href="?page=' . ($currentPage - 1) . '">Previous</a>';
+    <script>
+        function crudProjects() {
+            return {
+                id: 0,
+                name: '',
+                description: '',
+                start_date: '',
+                end_date: '',
+                priority: 'low',
+                budget: 0,
+                estimated_time: 0,
+                validation: null,
+                edit: false,
+
+                showConfirm: false,
+                showModalProject: false,
+                datosCargados: false,
+                id_project: 0,
+
+                projects: [],
+
+                url: '<?= HTTP_HOST . "/api/projects" ?>',
+                token: '<?= token() ?>',
+                user_id: '<?= user_id() ?>',
+
+                init: function () {
+                    console.log('init');
+                    this.fetchProjects();
+                },
+                fetchProjects: function () {
+                    const header = {
+                        headers: {
+                            'Content-type': 'application/json',
+                            Authorization: `Bearer ${this.token}`
+                        },
+                        method: "GET",
+                    };
+
+                    fetch(this.url, header)
+                        .then(data => data.json())
+                        .then((response) => {
+                            this.datosCargados = (response[0].id != undefined)
+                            if (this.datosCargados) {
+                                this.projects = response
+                                Alpine.store('ProjectStore').projects = response
+                            }
+                        })
+                        .catch(responseError => console.log(responseError))
+                },
+                addProject: function () {
+
+                    var dataForm = {
+                        user_id: this.user_id,
+                        name: this.name,
+                        description: this.description,
+                        start_date: this.start_date,
+                        end_date: this.end_date,
+                        priority: this.priority,
+                        budget: this.budget,
+                        estimated_time: this.estimated_time
+                    }
+                    this.crud(this.url, "POST", dataForm, "Project created successfully")
+
+                    this.fetchProjects();
+                },
+                editProject: function (project) {
+                    this.id = project.id;
+                    this.name = project.name;
+                    this.description = project.description;
+                    this.start_date = project.start_date;
+                    this.end_date = project.end_date;
+                    this.priority = project.priority;
+                    this.budget = project.budget;
+                    this.estimated_time = project.estimated_time;
+                },
+                updateProject: function () {
+                    var dataForm = {
+                        id: this.id,
+                        user_id: this.user_id,
+                        name: this.name,
+                        description: this.description,
+                        start_date: this.start_date,
+                        end_date: this.end_date,
+                        priority: this.priority,
+                        budget: this.budget,
+                        estimated_time: this.estimated_time
+                    };
+                    this.crud(this.url + '/' + this.id, "PUT", dataForm, "Project updated successfully");
+                    this.fetchProjects();
+                },
+                deleteProject: function () {
+                    this.crud(this.url + '/' + this.id_project.id, "DELETE", null, "Project deleted successfully")
+                    this.fetchProjects();
+                },
+                crud: function (url, method = "POST", dataForm, message = "OK") {
+                    var header = {
+                        headers: {
+                            'Content-type': 'application/json',
+                            Authorization: `Bearer ${this.token}`
+                        },
+                        method: method,
+                        body: JSON.stringify(dataForm)
+                    };
+                    fetch(url, header)
+                        .then(data => data.json())
+                        .then((response) => {
+                            console.log(response);
+                            if (response.status == "200") {
+                                toastr.success(message);
+                                this.resetData();
+                            } else if (response.status == "400") {
+                                console.log(response.message);
+                                this.validation = null;
+                                this.validation = response.message
+                            } else {
+                                toastr.success(response.message);
+                            }
+                        })
+                        .catch(responseError => console.log(responseError))
+                },
+                resetData: function () {
+                    this.name = '';
+                    this.description = '';
+                    this.start_date = '';
+                    this.end_date = '';
+                    this.priority = 'low';
+                    this.budget = 0;
+                    this.estimated_time = 0;
+                    this.validation = null;
+                    this.showModalProject = false;
+                    this.edit = false;
+                }
+            }
         }
-
-        // Mostrar enlaces de las páginas siguientes
-        for ($i = $currentPage + 1; $i <= min($currentPage + $numLinksToShow, $totalPages); $i++) {
-            echo '<a href="?page=' . $i . '">' . $i . '</a>';
-        }
-
-        // Si hay más de $numLinksToShow páginas después de la página actual, mostrar puntos suspensivos
-        if ($totalPages > $currentPage + $numLinksToShow) {
-            echo '<span>...</span>';
-        }
-
-        // Mostrar botón para la página siguiente si no estamos en la última página
-        if ($currentPage < $totalPages) {
-            echo '<a href="?page=' . ($currentPage + 1) . '">Next</a>';
-        }
-
-        echo '<a href="?page=' . $totalPages . '">Last</a>';
-        ?>
-    </div>
-</div>
-
-<style>
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .pagination a {
-        padding: 5px 10px;
-        margin: 0 5px;
-        border: 1px solid #ccc;
-        text-decoration: none;
-    }
-
-    .pagination .active {
-        background-color: #007bff;
-        color: white;
-        border: 1px solid #007bff;
-    }
-</style>
+    </script>
