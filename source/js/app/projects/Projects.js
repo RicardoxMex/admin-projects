@@ -15,7 +15,7 @@ document.addEventListener('alpine:init', () => {
             estimated_time: 0,
             user_id: 0,
         },
-        test: null,
+        test:null,
         validation: null,
         edit: false,
         showConfirm: false,
@@ -28,8 +28,12 @@ document.addEventListener('alpine:init', () => {
             fetch(this.url, this.headerAPI('GET'))
                 .then(data => data.json())
                 .then((response) => {
-                    this.projects = response
-                    Alpine.store('ProjectStore').projects = response
+
+                    this.datosCargados = (response[0].id != undefined)
+                    if (this.datosCargados) {
+                        this.projects = response
+                        Alpine.store('ProjectStore').projects = response
+                    }
                 })
                 .catch(responseError => console.log(responseError))
         },
@@ -37,7 +41,7 @@ document.addEventListener('alpine:init', () => {
             this.crud(this.url, this.headerAPI('POST', this.projectData), "Project created successfully")
             this.fetchProjects();
         },
-        updateProject() {
+        updateProject(){
             this.crud(this.url + '/' + this.project_id, this.headerAPI('PUT', this.projectData), "Project updated successfully")
             this.fetchProjects();
         },

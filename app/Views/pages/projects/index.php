@@ -60,7 +60,7 @@
                 <tr>
             </thead>
             <tbody>
-                <template x-for="project in $store.ProjectStore.projects" :key="project.id">
+                <template x-show="datosCargados" x-for="project in $store.ProjectStore.projects" :key="project.id">
                     <tr>
                         <td x-text="project.name"></td>
                         <td class="td-description" x-text="project.description"></td>
