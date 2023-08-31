@@ -2,7 +2,7 @@
 <html lang="<?= DEFAULT_LANGUAGE ?>">
 
 <head>
-    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/png" href="https://bootdey.com/img/Content/avatar/avatar1.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
@@ -14,32 +14,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdn.jsdelivr.net/npm/turbolinks"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" defer></script>
     <link rel="stylesheet" href="<?= CSS . 'main.min.css' ?>">
     <script src="<?= JS . 'main.min.js' ?>" defer></script>
-   
+    <script src="<?= JS . 'app.min.js' ?>"></script>
     <style>
         [x-cloak] {
             display: none !important;
         }
     </style>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.store('DisplayMode', {
-                mode: (localStorage.getItem("DisplayMode")) ?  localStorage.getItem("DisplayMode") : 'table',
-                setMode(mode){
-                    this.mode = mode;
-                    localStorage.setItem("DisplayMode", mode);
-                }
-            })
-            Alpine.store('ProjectStore', {
-                projects: [],
-                updateState(projects) {
-                    this.projects = projects;
-                }
-            })
-        })
-    </script>
-    
 </head>
 
 <body>

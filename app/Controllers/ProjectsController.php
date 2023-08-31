@@ -43,6 +43,12 @@ class ProjectsController extends Controller
 
     public function show($slug)
     {
-        echo $slug;
+        $project = Project::where('slug', $slug)->first();
+        Views::setViewPath('projects.show');
+        Views::setTitle($project->name);
+        Views::setData([
+            'project' => $project,
+        ]);
+        return Views::render();
     }
 }

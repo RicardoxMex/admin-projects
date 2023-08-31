@@ -1,4 +1,4 @@
-<div class="container" x-data="crudProjects" x-init="init">
+<div class="container" x-data="Projects" x-init>
     <div x-show="showConfirm" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" x-cloak>
         <div x-show="showConfirm" class="bg-white p-4 rounded shadow" x-transition>
             <p class="mb-4">¿Deseas eliminar este elemento?</p>
@@ -83,12 +83,12 @@
                                 </span>
                             </a>
                             <button class=" btn btn-icon-only"
-                                @click="showModalProject = true; edit=true; editProject(project)">
+                                @click="showModalProject = true; edit=true; projectData=project;">
                                 <span class="material-symbols-outlined">
                                     edit
                                 </span>
                             </button>
-                            <button @click="showConfirm = true; id_project=project;"
+                            <button @click="showConfirm = true; project_id=project.id;"
                                 class="btn btn-danger btn-icon-only">
                                 <span class="material-symbols-outlined">
                                     delete
@@ -101,142 +101,3 @@
         </table>
 
     </div>
-
-
-
-
-    <script>
-        function crudProjects() {
-            return {
-                id: 0,
-                name: '',
-                description: '',
-                start_date: '',
-                end_date: '',
-                priority: 'low',
-                budget: 0,
-                estimated_time: 0,
-                validation: null,
-                edit: false,
-
-                showConfirm: false,
-                showModalProject: false,
-                datosCargados: false,
-                id_project: 0,
-
-                projects: [],
-
-                url: '<?= HTTP_HOST . "/api/projects" ?>',
-                token: '<?= token() ?>',
-                user_id: '<?= user_id() ?>',
-
-                init: function () {
-                    console.log('init');
-                    this.fetchProjects();
-                },
-                fetchProjects: function () {
-                    const header = {
-                        headers: {
-                            'Content-type': 'application/json',
-                            Authorization: `Bearer ${this.token}`
-                        },
-                        method: "GET",
-                    };
-
-                    fetch(this.url, header)
-                        .then(data => data.json())
-                        .then((response) => {
-                            this.datosCargados = (response[0].id != undefined)
-                            if (this.datosCargados) {
-                                this.projects = response
-                                Alpine.store('ProjectStore').projects = response
-                            }
-                        })
-                        .catch(responseError => console.log(responseError))
-                },
-                addProject: function () {
-
-                    var dataForm = {
-                        user_id: this.user_id,
-                        name: this.name,
-                        description: this.description,
-                        start_date: this.start_date,
-                        end_date: this.end_date,
-                        priority: this.priority,
-                        budget: this.budget,
-                        estimated_time: this.estimated_time
-                    }
-                    this.crud(this.url, "POST", dataForm, "Project created successfully")
-
-                    this.fetchProjects();
-                },
-                editProject: function (project) {
-                    this.id = project.id;
-                    this.name = project.name;
-                    this.description = project.description;
-                    this.start_date = project.start_date;
-                    this.end_date = project.end_date;
-                    this.priority = project.priority;
-                    this.budget = project.budget;
-                    this.estimated_time = project.estimated_time;
-                },
-                updateProject: function () {
-                    var dataForm = {
-                        id: this.id,
-                        user_id: this.user_id,
-                        name: this.name,
-                        description: this.description,
-                        start_date: this.start_date,
-                        end_date: this.end_date,
-                        priority: this.priority,
-                        budget: this.budget,
-                        estimated_time: this.estimated_time
-                    };
-                    this.crud(this.url + '/' + this.id, "PUT", dataForm, "Project updated successfully");
-                    this.fetchProjects();
-                },
-                deleteProject: function () {
-                    this.crud(this.url + '/' + this.id_project.id, "DELETE", null, "Project deleted successfully")
-                    this.fetchProjects();
-                },
-                crud: function (url, method = "POST", dataForm, message = "OK") {
-                    var header = {
-                        headers: {
-                            'Content-type': 'application/json',
-                            Authorization: `Bearer ${this.token}`
-                        },
-                        method: method,
-                        body: JSON.stringify(dataForm)
-                    };
-                    fetch(url, header)
-                        .then(data => data.json())
-                        .then((response) => {
-                            console.log(response);
-                            if (response.status == "200") {
-                                toastr.success(message);
-                                this.resetData();
-                            } else if (response.status == "400") {
-                                console.log(response.message);
-                                this.validation = null;
-                                this.validation = response.message
-                            } else {
-                                toastr.success(response.message);
-                            }
-                        })
-                        .catch(responseError => console.log(responseError))
-                },
-                resetData: function () {
-                    this.name = '';
-                    this.description = '';
-                    this.start_date = '';
-                    this.end_date = '';
-                    this.priority = 'low';
-                    this.budget = 0;
-                    this.estimated_time = 0;
-                    this.validation = null;
-                    this.showModalProject = false;
-                    this.edit = false;
-                }
-            }
-        }
-    </script>

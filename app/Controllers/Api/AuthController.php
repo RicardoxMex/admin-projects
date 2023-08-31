@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Auth\AuthService;
 use App\Auth\User;
+use App\Core\Services\TokenService;
 use App\Core\Services\UserService;
 use App\Utils\Request;
 use Firebase\JWT\JWT;
@@ -43,9 +44,11 @@ class AuthController{
                 'data' =>$user->id
             ];
             $jwt = JWT::encode($payload, API_KEY, 'HS256');
+            AuthService::createSession($jwt, $user->username);
+            TokenService::createToken($user->id, $jwt);
             successResponse(['token' => $jwt]);
         }else{
-            errorResponse('invalid username and password', 400);
+            errorResponse('invalid email and password', 400);
         }
     }
 

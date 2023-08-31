@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Core\Services\ProjectService;
+use App\Core\Services\UserService;
 use App\Utils\Controller;
 use App\Utils\Paginator;
 use App\Utils\Request;
@@ -35,7 +36,14 @@ class ProjectsController extends Controller
     {
         $request = $request->getRequest();
         if (ProjectService::validateRequestAPI()) {
-            $projects = ProjectService::createProject($request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time, $request->user_id);
+            $user = null;
+            if($request->user_id === 0){
+                $user = currentUser();
+                $user = $user->id;
+            }else{
+                $user = $request->user_id;
+            }
+            $projects = ProjectService::createProject($request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time, $user);
             successResponse($projects);
         }
     }
@@ -67,6 +75,6 @@ class ProjectsController extends Controller
     {
         $request = $request::getRequest();
         ProjectService::updateProject($request->id, $request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time);
-        successResponseCustom(["message" => "Project updated successfully","status" => 200]);
+        successResponseCustom(["message" => "Project updated successfully", "status" => 200]);
     }
 }

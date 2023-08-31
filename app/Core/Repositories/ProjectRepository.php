@@ -64,6 +64,10 @@ class ProjectRepository
     {
 
         try {
+            $user = UserService::getUserById($userId);
+            if(!$user){
+                errorResponse("User not found", 404);
+            }
             $project = new Project();
             $username = UserService::getUserById($userId)->username;
             $slug = Str::slug($name . '-' . $username);

@@ -11,27 +11,27 @@
 
                 <div class="form-group">
                     <label for="name">Project Name:</label>
-                    <input x-model="name" type="text" id="name" name="name">
+                    <input x-model="projectData.name" type="text" id="name" name="name">
                     <span class="alert-text" x-text="validation?.name"></span>
                 </div>
                 <div class="form-group">
                     <label for="description">Description:</label>
-                    <textarea x-model="description" id="description" name="description" rows="4"></textarea>
+                    <textarea x-model="projectData.description" id="description" name="description" rows="4"></textarea>
                     <span class="alert-text" x-text="validation?.description"></span>
                 </div>
                 <div class="form-group">
                     <label for="start_date">Start Date:</label>
-                    <input x-model="start_date" type="date" id="start_date" name="start_date">
+                    <input x-model="projectData.start_date" type="date" id="start_date" name="start_date">
                     <span class="alert-text" x-text="validation?.start_date"></span>
                 </div>
                 <div class="form-group">
                     <label for="end_date">End Date:</label>
-                    <input x-model="end_date" type="date" id="end_date" name="end_date">
+                    <input x-model="projectData.end_date" type="date" id="end_date" name="end_date">
                     <span class="alert-text" x-text="validation?.end_date"></span>
                 </div>
                 <div class="form-group">
                     <label for="priority">Priority:</label>
-                    <select x-model="priority" id="priority" name="priority">
+                    <select x-model="projectData.priority" id="priority" name="priority">
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
@@ -40,12 +40,12 @@
                 </div>
                 <div class="form-group">
                     <label for="budget">Budget:</label>
-                    <input x-model="budget" type="number" id="budget" name="budget" step="0.01">
+                    <input x-model="projectData.budget" type="number" id="budget" name="budget" step="0.01">
                     <span class="alert-text" x-text="validation?.budget"></span>
                 </div>
                 <div class="form-group">
                     <label for="estimated_time">Estimated Time:</label>
-                    <input x-model="estimated_time" type="number" id="estimated_time" name="estimated_time" step="0.01">
+                    <input x-model="projectData.estimated_time" type="number" id="estimated_time" name="estimated_time" step="0.01">
                     <span class="alert-text" x-text="validation?.estimated_time"></span>
                 </div>
                 <div class="flex items-center justify-start w-full">

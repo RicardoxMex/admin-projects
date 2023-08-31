@@ -18,11 +18,13 @@ function getFilesRecursive($folder, $extension)
 
 // Rutas de los archivos originales CSS y JS
 $cssFiles = ['source/css/index.css'];
-$jsFiles = getFilesRecursive('source/js', 'js');
+$jsFiles = getFilesRecursive('source/js/libs', 'js');
+$alpineJSFiles = getFilesRecursive('source/js/app', 'js');
 
 // Ruta de los archivos minificados CSS y JS
 $minifiedCssFile = 'public/css/main.min.css';
 $minifiedJsFile = 'public/js/main.min.js';
+$minifiedAlpineJsFile = 'public/js/app.min.js';
 
 // Minificar los archivos CSS
 $cssMinifier = new Minify\CSS();
@@ -37,5 +39,11 @@ foreach ($jsFiles as $jsFile) {
     $jsMinifier->add($jsFile);
 }
 $jsMinifier->minify($minifiedJsFile);
+
+$aplineJSMinifier = new Minify\JS();
+foreach ($alpineJSFiles as $jsFile) {
+    $aplineJSMinifier->add($jsFile);
+}
+$aplineJSMinifier->minify($minifiedAlpineJsFile);
 
 //echo "Archivos minificados con éxito.";
