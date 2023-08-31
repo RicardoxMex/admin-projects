@@ -28,10 +28,9 @@ document.addEventListener('alpine:init', () => {
             fetch(this.url, this.headerAPI('GET'))
                 .then(data => data.json())
                 .then((response) => {
-
+                    this.projects = response
                     this.datosCargados = (response[0].id != undefined)
                     if (this.datosCargados) {
-                        this.projects = response
                         Alpine.store('ProjectStore').projects = response
                     }
                 })
