@@ -2,8 +2,8 @@
     <section class="container-auth login background-body center">
 
         <div class="container login-menu">
-            <a @click="showSingIn = true; showSingUp = false" id="menu-sign-in" href="#sign-in" class="login-menu-button" x-bind:class="showSingIn ? 'select-button-login' : '' ">SIGN IN</a>
-            <a @click="showSingIn = false; showSingUp = true"  id="menu-sign-up" href="#sign-up" class="login-menu-button" x-bind:class="showSingUp ? 'select-button-login' : '' ">SIGN UP</a>
+            <button @click="showSingIn = true; showSingUp = false" id="menu-sign-in" class="login-menu-button" x-bind:class="showSingIn ? 'select-button-login' : '' ">SIGN IN</button>
+            <button @click="showSingIn = false; showSingUp = true"  id="menu-sign-up" class="login-menu-button" x-bind:class="showSingUp ? 'select-button-login' : '' ">SIGN UP</button>
         </div>
         <form class="container form-content" x-show="showSingIn" x-cloak>
             <div class="login-form login-username">
