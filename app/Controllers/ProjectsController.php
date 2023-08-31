@@ -14,41 +14,7 @@ class ProjectsController extends Controller
 
     public function index()
     {
-        $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $itemsPerPage = 12; // Cambia esto al número deseado de elementos por página
-
-        Paginator::currentPageResolver(function () use ($currentPage) {
-            return $currentPage;
-        });
-
-        $users = Project::paginate($itemsPerPage);
-
-        $currentPage = $users->currentPage();
-        $total = $users->total();
-        $lastPage = $users->lastPage();
-        $nextPageUrl = $users->nextPageUrl();
-        $previousPageUrl = $users->previousPageUrl();
-
-        // Verificar si las URLs son null antes de usar str_replace()
-        if ($nextPageUrl !== null) {
-            $nextPageUrl = str_replace('/', '', $nextPageUrl);
-        }
-
-        if ($previousPageUrl !== null) {
-            $previousPageUrl = str_replace('/', '', $previousPageUrl);
-        }
-
-
-        $user = currentUser();
-        $projects = ProjectService::getProjectsByUserId($user->id);
         Views::setViewPath('projects.index');
-        Views::setData([
-            'projects' => $users->items(),
-            'projectsPerPage' =>$itemsPerPage,
-            'totalProjects' => $total,
-            'previousPageUrl' => $previousPageUrl,
-            'nextPageUrl' => $nextPageUrl
-        ]);
         Views::setTitle('Projects');
         return Views::render();
     }
@@ -77,6 +43,12 @@ class ProjectsController extends Controller
 
     public function show($slug)
     {
-        echo $slug;
+        $project = Project::where('slug', $slug)->first();
+        Views::setViewPath('projects.show');
+        Views::setTitle($project->name);
+        Views::setData([
+            'project' => $project,
+        ]);
+        return Views::render();
     }
 }

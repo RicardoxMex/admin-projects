@@ -3,9 +3,11 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TeamMember extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['user_id', 'team_id', 'project_role_id', 'invitation_status'];
 
     public function user()

@@ -21,7 +21,7 @@ class ProjectRepository
         Session::delete('data');
         $request = Request::getRequest();
         if ($request) {
-            $request = (array)$request;
+            $request = (array) $request;
         } else {
             $request = $_POST;
         }
@@ -33,15 +33,41 @@ class ProjectRepository
             return true;
         }
         Session::setSession("errors", $gump->get_errors_array());
-        Session::setSession('data', (object)$request);
+        Session::setSession('data', (object) $request);
+        return false;
+    }
+
+    public static function validateRequestAPI(): bool
+    {
+        Session::delete("errors");
+        Session::delete('data');
+        $request = Request::getRequest();
+        if ($request) {
+            $request = (array) $request;
+        } else {
+            $request = $_POST;
+        }
+        $gump = new GUMP();
+        $rules = Project::$rules;
+        $gump->validation_rules($rules);
+        $gump->run($request);
+        if ($gump->is_valid($request, $rules) === true) {
+            return true;
+        }
+        Session::setSession("errors", $gump->get_errors_array());
+        Session::setSession('data', (object) $request);
         errorResponse($gump->get_errors_array());
         return false;
     }
 
-    public static function createProject(string $name, string $description,  string $startDate, string $endDate, string $priority, $budget, string $estimated_time, int $userId)
+    public static function createProject(string $name, string $description, string $startDate, string $endDate, string $priority, $budget, string $estimated_time, int $userId)
     {
 
         try {
+            $user = UserService::getUserById($userId);
+            if(!$user){
+                errorResponse("User not found", 404);
+            }
             $project = new Project();
             $username = UserService::getUserById($userId)->username;
             $slug = Str::slug($name . '-' . $username);
@@ -73,6 +99,29 @@ class ProjectRepository
         return $project;
     }
 
+    public static function updateProject(int $id, string $name, string $description, string $startDate, string $endDate, string $priority, $budget, string $estimated_time)
+    {
+        try {
+            $project = self::getProjectsById($id);
+            if ($project) {
+                $project->name = $name;
+                $project->description = $description;
+                $project->start_date = $startDate;
+                $project->end_date = $endDate;
+                $project->priority = $priority;
+                $project->budget = $budget;
+                $project->estimated_time = $estimated_time;
+                $project->save();
+                return $project;
+            }else {
+                errorResponse("Couldn't find project", 404);
+            }
+            
+        } catch (PDOException $e) {
+            errorResponse("Error updating project");
+        }
+    }
+
     public static function getProjectsbyUserId($userId)
     {
         $projects = Project::where('user_id', $userId)->get();
@@ -88,5 +137,12 @@ class ProjectRepository
     public static function existsProjectBySlug($slug)
     {
         return Project::where('slug', $slug)->exists();
+    }
+
+    public static function deleteProject($id)
+    {
+        $project = Project::find($id);
+        $project->delete();
+        return $project;
     }
 }

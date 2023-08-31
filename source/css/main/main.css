@@ -5,6 +5,9 @@ body {
   margin-top: 56px;
 }
 
+.container{
+  width: 100%;
+}
 
 .hidden {
   display: none !important;
@@ -264,8 +267,9 @@ body {
 /* grid*/
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr)); /* Define el alto de las filas */
+  gap: 10px;
   padding: 20px;
   margin: 0 auto;
 }
@@ -399,4 +403,8 @@ body {
 
 .alert-text{
   color: #ff0015;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

@@ -3,9 +3,11 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
+    use SoftDeletes;
     public $timestamps = false;
     protected $hidden = [
         'password'
@@ -33,7 +35,6 @@ class User extends Model
     {
         return $this->hasOne(Profile::class);
     }
-
     public function tokens()
     {
         return $this->hasMany(Token::class);

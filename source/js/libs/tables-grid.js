@@ -1,5 +1,5 @@
 
-document.addEventListener("turbolinks:load", function () {
+/* document.addEventListener("turbolinks:load", function () {
     const btnGrid = document.getElementById('btn-grid');
     const btnList = document.getElementById('btn-list');
     const table = document.getElementById('table');
@@ -49,4 +49,4 @@ document.addEventListener("turbolinks:load", function () {
     }
 
 })
-
+*/

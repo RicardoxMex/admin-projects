@@ -3,6 +3,7 @@
 namespace App\Controllers\Api;
 
 use App\Core\Services\ProjectService;
+use App\Core\Services\UserService;
 use App\Utils\Controller;
 use App\Utils\Paginator;
 use App\Utils\Request;
@@ -34,8 +35,15 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
         $request = $request->getRequest();
-        if (ProjectService::validateRequest()) {
-            $projects = ProjectService::createProject($request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time, $request->user_id);
+        if (ProjectService::validateRequestAPI()) {
+            $user = null;
+            if($request->user_id === 0){
+                $user = currentUser();
+                $user = $user->id;
+            }else{
+                $user = $request->user_id;
+            }
+            $projects = ProjectService::createProject($request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time, $user);
             successResponse($projects);
         }
     }
@@ -49,5 +57,24 @@ class ProjectsController extends Controller
         }
 
         errorResponse("Project not found", 404);
+    }
+
+    public function destroy($id)
+    {
+        $project = ProjectService::deleteProject($id);
+        $response = [
+            "project" => $project,
+            "message" => "Project deleted successfully",
+            "status" => 200
+        ];
+
+        return successResponseCustom($response);
+    }
+
+    public function update($id, Request $request)
+    {
+        $request = $request::getRequest();
+        ProjectService::updateProject($request->id, $request->name, $request->description, $request->start_date, $request->end_date, $request->priority, $request->budget, $request->estimated_time);
+        successResponseCustom(["message" => "Project updated successfully", "status" => 200]);
     }
 }

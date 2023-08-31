@@ -14,5 +14,7 @@ return[
     //Rutas ProjectsController
     ['GET', '/api/projects', [ProjectsController::class, 'index']],
     ['POST', '/api/projects', [ProjectsController::class, 'store']],
-    ['GET', '/api/projects/{id}', [ProjectsController::class, 'show']]
+    ['GET', '/api/projects/{id}', [ProjectsController::class, 'show']],
+    ['DELETE', '/api/projects/{id}', [ProjectsController::class, 'destroy']],
+    ['PUT', '/api/projects/{id}', [ProjectsController::class, 'update']],
 ];

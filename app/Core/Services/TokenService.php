@@ -16,10 +16,12 @@ class TokenService
         return TokenRepository::validateToken($token);
     }
 
-    public static function createToken(int $userID)
+    public static function createToken(int $userID, $token="")
     {
         $fechaExpiracion = date('Y-m-d H:i:s', strtotime('+1 day'));
-        $token =  self::generateToken();
+        if($token==""){
+            $token =  self::generateToken();
+        }
         return TokenRepository::create($userID, $token, $fechaExpiracion);
     }
 

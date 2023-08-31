@@ -19,10 +19,5 @@ return[
 
     // Rutas de ProjectsController
     ['GET', '/projects', [ProjectsController::class, 'index']],
-    ['GET', '/projects/create', [ProjectsController::class, 'create']],
-    ['POST', '/projects/store', [ProjectsController::class,'store']],
     ['GET', '/projects/{slug}', [ProjectsController::class,'show']],
-    ['GET', '/projects/{slug}/edit', [ProjectsController::class, 'edit']],
-    ['PUT', '/projects/{slug}', [ProjectsController::class, 'update']],
-
 ];
