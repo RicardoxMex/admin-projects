@@ -2,7 +2,7 @@
 document.addEventListener('alpine:init', () => {
     Alpine.store('ENV', {
         token: (localStorage.getItem("token")) ? localStorage.getItem("token") : '',
-        URL: 'http://192.168.3.2:8000/api',
+        URL: 'https://admin-projects-production.up.railway.app/api',
         setToken(token) {
             console.log("token", token)
             localStorage.setItem('token', token);
