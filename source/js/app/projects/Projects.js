@@ -25,27 +25,19 @@ document.addEventListener('alpine:init', () => {
             this.fetchProjects();
         },
         fetchProjects() {
-            axios.get(this.url, {
-                headers: {
-                    'Content-type': 'application/json',
-                    Authorization: `Bearer ${this.token}`
-                }
-            })
-            .then(response => {
-                // Handle successful response here
-                console.log(response.data); // Access response data
-            })
-            .catch(error => {
-                // Handle error here
-                console.error(error);
-            });
+            fetch(this.url, this.headerAPI('GET'))
+                .then(data => data.json())
+                .then((response) => {
+                    this.projects = response
+                    this.datosCargados = (response[0].id != undefined)
+                    if (this.datosCargados) {
+                        Alpine.store('ProjectStore').projects = response
+                    }
+                })
+                .catch(responseError => console.log(responseError))
         },
-        async addProject () {
-            let response = await axios.post(this.url, this.projectData, {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${this.token}`
-            })
-            console.log(response);
+        addProject: function () {
+            this.crud(this.url, this.headerAPI('POST', this.projectData), "Project created successfully")
             this.fetchProjects();
         },
         updateProject(){
@@ -64,6 +56,7 @@ document.addEventListener('alpine:init', () => {
                     if (response.status == 200) {
                         Alpine.store('Toast').show('success', mesage);
                         this.resetData()
+                        this.fetchProjects();
                     } else if (response.status = 400) {
                         this.validation = response.message
                     } else if (response.status == 404) {
