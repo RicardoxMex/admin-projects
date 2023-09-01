@@ -40,8 +40,12 @@ document.addEventListener('alpine:init', () => {
                 console.error(error);
             });
         },
-        addProject: function () {
-            this.crud(this.url, this.headerAPI('POST', this.projectData), "Project created successfully")
+        async addProject () {
+            let response = await axios.post(this.url, this.projectData, {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${this.token}`
+            })
+            console.log(response);
             this.fetchProjects();
         },
         updateProject(){
