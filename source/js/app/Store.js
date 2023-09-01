@@ -4,7 +4,7 @@ document.addEventListener('alpine:init', () => {
         token: (localStorage.getItem("token")) ? localStorage.getItem("token") : '',
         URL: 'https://admin-projects-production.up.railway.app/api',
         setToken(token) {
-            console.log("token", token)
+            this.token = token;
             localStorage.setItem('token', token);
         }
     })

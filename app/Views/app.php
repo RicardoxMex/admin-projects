@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/turbolinks"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="<?= CSS . 'main.min.css' ?>">
     <script src="<?= JS . 'main.min.js' ?>" defer></script>
     <script src="<?= JS . 'app.min.js' ?>"></script>

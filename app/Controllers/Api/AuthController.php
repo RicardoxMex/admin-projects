@@ -11,71 +11,78 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Pagination\Paginator;
 
-class AuthController{
-    public static function getToken() {
-        $headers = apache_request_headers();
-        if(!isset($headers['Authorization'])){
-            return errorResponse('Unauthenticated request', 403);
-        }
-        $autorization = $headers['Authorization'];
-        $autorizationArray = explode(' ', $autorization);
-        $token = $autorizationArray[1];
+class AuthController
+{
+    public static function getToken()
+    {
         try {
+            $headers = apache_request_headers();
+            if (!isset($headers['Authorization'])) {
+                return errorResponse('Unauthenticated request', 403);
+            }
+            $autorization = $headers['Authorization'];
+            $autorizationArray = explode(' ', $autorization);
+            $token = $autorizationArray[1];
+
             return JWT::decode($token, new Key(API_KEY, 'HS256'));
         } catch (\Throwable $th) {
             return errorResponse($th->getMessage(), 403);
         }
     }
 
-    public static function validateToken() {
+    public static function validateToken()
+    {
         $info = self::getToken();
         $user = User::where('id', $info->data)->first();
-        return  $user;
+        return $user;
     }
 
-    public function auth(){
+    public function auth()
+    {
         $request = Request::getRequest();
         $now = strtotime("now");
-        
+
         $user = AuthService::auth($request->email, $request->password);
-        if($user){
+        if ($user) {
             $payload = [
                 'exp' => $now + 2629800,
-                'data' =>$user->id
+                'data' => $user->id
             ];
             $jwt = JWT::encode($payload, API_KEY, 'HS256');
             AuthService::createSession($jwt, $user->username);
             TokenService::createToken($user->id, $jwt);
             successResponse(['token' => $jwt]);
-        }else{
+        } else {
             errorResponse('invalid email and password', 400);
         }
     }
 
-    public function token($email, $password){
+    public function token($email, $password)
+    {
         $now = strtotime("now");
         $user = AuthService::auth($email, $password);
-        if($user){
+        if ($user) {
             $payload = [
                 'exp' => $now + 2629800,
-                'data' =>$user->id
+                'data' => $user->id
             ];
             $jwt = JWT::encode($payload, API_KEY, 'HS256');
             return $jwt;
         }
     }
 
-    public function signin($request){
+    public function signin($request)
+    {
         $request = $request->getRequest();
         if (UserService::validateRequestApi() === true) {
             $user = UserService::create($request->username, $request->email, $request->password);
             $response = [
-                'user'=>$user,
-                'token'=>$this->token($request->email, $request->password)
+                'user' => $user,
+                'token' => $this->token($request->email, $request->password)
             ];
             successResponse($response);
         }
-        
+
     }
 
     public function users()
@@ -98,7 +105,8 @@ class AuthController{
         }
     }
 
-    public function validateTokenAPI() {
+    public function validateTokenAPI()
+    {
         if (!$this->validateToken()) {
             return errorResponse('Unauthorized', 403);
         }
