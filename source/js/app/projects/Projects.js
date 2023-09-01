@@ -25,16 +25,20 @@ document.addEventListener('alpine:init', () => {
             this.fetchProjects();
         },
         fetchProjects() {
-            fetch(this.url, this.headerAPI('GET'))
-                .then(data => data.json())
-                .then((response) => {
-                    this.projects = response
-                    this.datosCargados = (response[0].id != undefined)
-                    if (this.datosCargados) {
-                        Alpine.store('ProjectStore').projects = response
-                    }
-                })
-                .catch(responseError => console.log(responseError))
+            axios.get(this.url, {
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${this.token}`
+                }
+            })
+            .then(response => {
+                // Handle successful response here
+                console.log(response.data); // Access response data
+            })
+            .catch(error => {
+                // Handle error here
+                console.error(error);
+            });
         },
         addProject: function () {
             this.crud(this.url, this.headerAPI('POST', this.projectData), "Project created successfully")
