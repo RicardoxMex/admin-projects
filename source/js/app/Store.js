@@ -4,7 +4,7 @@ document.addEventListener('alpine:init', () => {
         token: (localStorage.getItem("token")) ? localStorage.getItem("token") : '',
         URL: 'http://192.168.3.2:8000/api',
         setToken(token) {
-            console.log("token", token)
+            this.token = token;
             localStorage.setItem('token', token);
         }
     })
