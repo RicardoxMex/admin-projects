@@ -15,7 +15,7 @@ document.addEventListener('alpine:init', () => {
             estimated_time: 0,
             user_id: 0,
         },
-        test:null,
+        test: null,
         validation: null,
         edit: false,
         showConfirm: false,
@@ -38,15 +38,15 @@ document.addEventListener('alpine:init', () => {
         },
         addProject: function () {
             this.crud(this.url, this.headerAPI('POST', this.projectData), "Project created successfully")
-            this.fetchProjects();
+
         },
-        updateProject(){
+        updateProject() {
             this.crud(this.url + '/' + this.project_id, this.headerAPI('PUT', this.projectData), "Project updated successfully")
-            this.fetchProjects();
+
         },
         deleteProject() {
             this.crud(this.url + '/' + this.project_id, this.headerAPI('DELETE', null), "Project deleted successfully")
-            this.fetchProjects();
+
         },
         crud(url, header, mesage = "OK") {
             fetch(url, header)

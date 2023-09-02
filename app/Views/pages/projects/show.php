@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="board">
+    <div class="board" x-data="CardStatus">
         <div class="column">
             <div class="column-title">
                 Inicio
@@ -48,7 +48,7 @@
             </div>
             <div class="column-body sortable-list" data-column="inicio2" id="ad2">
                 <div class="card" id="ad2">
-                    <div class="card-title" >
+                    <div class="card-title">
                         TASK
                     </div>
                     <div class="card-icon">
@@ -150,28 +150,30 @@
     }
 </style>
 <script>
-    console.log('Holas');
-    document.addEventListener("turbolinks:load", function () {
-        let sortableLists = document.querySelectorAll(".sortable-list");
-        sortableLists.forEach((list) => {
-            new Sortable(list, {
-                group: "column",
-                animation: 150,
-                ghostClass: "sortable-ghost",
-                chosenClass: "sortable-chosen",
-                dragClass: "sortable-drag",
-                onUpdate: function (evt) {
-                    const column = list.getAttribute("data-column");
-                    const itemID = evt.item.id;
-                    console.log(`Elemento ${itemID} paso del posicion ${evt.oldIndex} a las posicion ${evt.newIndex}`);
-                    console.log(`Elemento xd1 "${itemID}" movido a la columna ${column}`);
-                },
-                onAdd: function (evt) {
-                    const column = list.getAttribute("data-column");
-                    const itemText = evt.item.id;
-                    console.log(`Elemento xd2 "${itemText}" movido a la columna ${column}`);
-                },
+    function CardStatus() {
+        // Utiliza Alpine.js para inicializar Sortable.js en las listas
+        Alpine.effect(() => {
+            const sortableLists = document.querySelectorAll(".sortable-list");
+            sortableLists.forEach((list) => {
+                new Sortable(list, {
+                    group: "column",
+                    animation: 150,
+                    ghostClass: "sortable-ghost",
+                    chosenClass: "sortable-chosen",
+                    dragClass: "sortable-drag",
+                    onUpdate: function (evt) {
+                        const column = list.getAttribute("data-column");
+                        const itemID = evt.item.id;
+                        console.log(`Elemento ${itemID} pasó de la posición ${evt.oldIndex} a la posición ${evt.newIndex}`);
+                        console.log(`Elemento "${itemID}" movido a la columna ${column}`);
+                    },
+                    onAdd: function (evt) {
+                        const column = list.getAttribute("data-column");
+                        const itemText = evt.item.id;
+                        console.log(`Elemento "${itemText}" movido a la columna ${column}`);
+                    },
+                });
             });
         });
-    })
+    }
 </script>

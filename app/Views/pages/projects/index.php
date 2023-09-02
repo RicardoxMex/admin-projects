@@ -41,7 +41,30 @@
         </div>
     </div>
     <div x-show="$store.DisplayMode.mode=='grid'" id="grid" class="grid">
-        holas
+        <template x-show="datosCargados" x-for="project in $store.ProjectStore.projects" :key="project.id">
+            <a class="card glass" :href="'<?= HTTP_HOST ?>/projects/'+project.slug">
+                <div class="card-header">
+                    <h2 x-text="project.name"></h2>
+                    <p class="description">
+                    </p>
+                </div>
+                <div class="card-body">
+                    <div class="status">
+                        <p><strong>Status:</strong> <span class="status-badge in-progress">
+                            </span></p>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="<?= "width: $project->progress %;" ?>">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="end-date">
+                        <p><strong>End Date:</strong>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </template>
     </div>
     <div x-show="$store.DisplayMode.mode=='table'" id="table" x-cloak>
         <table class="table">
@@ -77,7 +100,7 @@
                         <td x-text="project.budget"></td>
                         <td x-text="project.estimated_time+' HRS'"></td>
                         <td class="btn-group">
-                            <a class=" btn btn-success btn-icon-only" :href="'<?= HTTP_HOST?>/projects/'+project.slug">
+                            <a class=" btn btn-success btn-icon-only" :href="'<?= HTTP_HOST ?>/projects/'+project.slug">
                                 <span class="material-symbols-outlined">
                                     visibility
                                 </span>

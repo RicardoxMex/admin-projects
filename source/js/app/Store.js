@@ -2,7 +2,7 @@
 document.addEventListener('alpine:init', () => {
     Alpine.store('ENV', {
         token: (localStorage.getItem("token")) ? localStorage.getItem("token") : '',
-        URL: 'https://admin-projects-production.up.railway.app/api',
+        URL: 'http://192.168.3.2:8000/api',
         setToken(token) {
             this.token = token;
             localStorage.setItem('token', token);
@@ -56,15 +56,10 @@ document.addEventListener('alpine:init', () => {
 
     Alpine.store('ProjectStore', {
         projects: [],
-        updateState(projects) {
-            this.projects = projects;
-        }
+        tasks: [],
     })
 
-    Alpine.store('Tasks', {
-        tasks: "Hola que hace",
-        updateState() {
-            console.log("Hola que hace uwu xd");
-        }
+    Alpine.store('TaskStore', {
+        tasks: [],
     })
 })
