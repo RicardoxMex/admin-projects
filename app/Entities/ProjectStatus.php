@@ -9,6 +9,12 @@ class ProjectStatus extends Model
 {
     use SoftDeletes;
     protected $table = 'project_status';
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
     protected $fillable = ['name', 'project_id'];
 
     public function project()

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace App\Controllers\Api\Projects;
 
+use App\Controllers\Api\AuthController;
 use App\Core\Services\ProjectService;
-use App\Core\Services\UserService;
 use App\Utils\Controller;
-use App\Utils\Paginator;
 use App\Utils\Request;
 
 class ProjectsController extends Controller
