@@ -65,13 +65,13 @@ class UserRepository
 
             if ($username_exists !== null && $email_exists === null) {
                 Session::setSession("validateUser", "El usuario ya existe");
-                errorResponse("El usuario ya existe");
+                errorResponse("El usuario ya existe", 409);
             } else if ($username_exists === null && $email_exists !== null) {
-                Session::setSession("validateUser", "El Correo ya existe");
+                Session::setSession("validateUser", "El Correo ya existe". 409);
                 errorResponse ("El Correo ya existe");
             } else {
                 Session::setSession("validateUser", "el usuario y el correo ya existen");
-                errorResponse("El usuario ya existe");
+                errorResponse("El usuario ya existe", 409);
             }
             Session::setSession('data', (object)$_POST);
             return null;

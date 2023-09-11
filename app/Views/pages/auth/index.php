@@ -19,30 +19,34 @@
                     <input type="checkbox" name="" id="">
                     <p>Remenber</p>
                 </div>
-                <button x-on:click="login" type="button" class="login-bottom-button">SING IN</button>
+                <button x-on:click="login" type="button" class="btn login-bottom-button">SING IN</button>
             </div>
         </form>
-        <p x-text="data.username"></p>
+        
         <form id="form-sign-up" class="container form-content" x-show="showSingUp" x-cloak>
 
             <div class="login-form login-username">
                 <label for="username">USERNAME</label>
-                <input type="text" name="username" id="username_sing_up">
+                <input x-model="dataRegister.username" type="text" name="username" id="username_sing_up">
+                <span class="alert-text" x-text="validation?.username"></span>
             </div>
             <div class="login-form login-username">
                 <label for="email">EMAIL</label>
-                <input type="email" name="email" id="email_sing_up">
+                <input  x-model="dataRegister.email" type="email" name="email" id="email_sing_up">
+                <span class="alert-text" x-text="validation?.email"></span>
             </div>
             <div class="login-form login-password">
                 <label for="password">PASSWORD</label>
-                <input type="password" name="password" id="password_sing_up">
+                <input  x-model="dataRegister.password" type="password" name="password" id="password_sing_up">
+                <span class="alert-text" x-text="validation?.password"></span>
             </div>
             <div class="login-form login-password">
                 <label for="onfirm_password">CONFIRM PASSWORD </label>
-                <input type="password" name="confirm_password" id="confirm_password_sing_up">
+                <input  x-model="dataRegister.confirm_password" type="password" name="confirm_password" id="confirm_password_sing_up">
+                <span class="alert-text" x-text="validation?.confirm_password"></span>
             </div>
             <div class="login-form login-bottom">
-                <button class="login-bottom-button">SING UP</button>
+                <button x-on:click="register" type="button" class="btn login-bottom-button">SING IN</button>
             </div>
         </form>
     </section>

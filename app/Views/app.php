@@ -14,8 +14,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,1,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/dist/output.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= CSS . 'main.min.css' ?>">
     <script src="<?= JS . 'main.min.js' ?>" defer></script>
     <script src="<?= JS . 'app.min.js' ?>"></script>

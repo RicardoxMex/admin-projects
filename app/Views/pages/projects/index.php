@@ -45,12 +45,12 @@
             <a class="card glass" :href="'<?= HTTP_HOST ?>/projects/'+project.slug">
                 <div class="card-header">
                     <h2 x-text="project.name"></h2>
-                    <p class="description">
-                    </p>
+                    <p class="description" x-text="project.description"></p>
                 </div>
                 <div class="card-body">
                     <div class="status">
-                        <p><strong>Status:</strong> <span class="status-badge in-progress">
+                        <p><strong>Status:</strong> 
+                        <span class="status-badge in-progress" x-text="project.status">
                             </span></p>
                     </div>
                     <div class="progress-container">
@@ -59,7 +59,8 @@
                         </div>
                     </div>
                     <div class="end-date">
-                        <p><strong>End Date:</strong>
+                        <p>
+                            <strong x-text="'End Date:'+project.end_date"></strong>
                         </p>
                     </div>
                 </div>

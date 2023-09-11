@@ -76,10 +76,13 @@ class AuthController
         $request = $request->getRequest();
         if (UserService::validateRequestApi() === true) {
             $user = UserService::create($request->username, $request->email, $request->password);
+            $jwt = $this->token($request->email, $request->password);
             $response = [
                 'user' => $user,
-                'token' => $this->token($request->email, $request->password)
+                'token' => $jwt
             ];
+            AuthService::createSession($jwt, $user->username);
+            TokenService::createToken($user->id, $jwt);
             successResponse($response);
         }
 
